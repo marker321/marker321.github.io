@@ -2,11 +2,11 @@ var baseSlice = require('./_baseSlice'),
     toInteger = require('./toInteger');
 
 /**
- * Creates a slice of `array` with `n` elements dropped from the beginning.
+ * Creates a slice of `array` with `n` elements dropped from the end.
  *
  * @static
  * @memberOf _
- * @since 0.5.0
+ * @since 3.0.0
  * @category Array
  * @param {Array} array The array to query.
  * @param {number} [n=1] The number of elements to drop.
@@ -14,25 +14,26 @@ var baseSlice = require('./_baseSlice'),
  * @returns {Array} Returns the slice of `array`.
  * @example
  *
- * _.drop([1, 2, 3]);
- * // => [2, 3]
+ * _.dropRight([1, 2, 3]);
+ * // => [1, 2]
  *
- * _.drop([1, 2, 3], 2);
- * // => [3]
+ * _.dropRight([1, 2, 3], 2);
+ * // => [1]
  *
- * _.drop([1, 2, 3], 5);
+ * _.dropRight([1, 2, 3], 5);
  * // => []
  *
- * _.drop([1, 2, 3], 0);
+ * _.dropRight([1, 2, 3], 0);
  * // => [1, 2, 3]
  */
-function drop(array, n, guard) {
+function dropRight(array, n, guard) {
   var length = array == null ? 0 : array.length;
   if (!length) {
     return [];
   }
   n = (guard || n === undefined) ? 1 : toInteger(n);
-  return baseSlice(array, n < 0 ? 0 : n, length);
+  n = length - n;
+  return baseSlice(array, 0, n < 0 ? 0 : n);
 }
 
-module.exports = drop;
+module.exports = dropRight;
